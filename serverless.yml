@@ -1,0 +1,55 @@
+service: serveless
+
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+
+functions:
+  read:
+    handler: handler.read
+    events:
+      - http:
+          path: /products/
+          method: get
+          cors: true
+      
+  create:
+    handler: handler.create
+    events:
+      - http:
+          path: products
+          method: post
+        cors: true
+
+  update:
+    handler: handler.update
+    events:
+      - http:
+          path: products/{id}
+          method: put
+          cors: true
+
+
+  delete: 
+    handler: handler.delete
+    events:
+      - http:
+          path: products/{id}
+          method: delete
+          cors: true
+
+
+  get:
+    handler: handler.search
+    events:
+      - http:
+          path: products/search/
+          method: get
+          cors: true
+
+
+
+plugins:
+  - serverless-offline
